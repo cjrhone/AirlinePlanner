@@ -4,12 +4,12 @@ using MySql.Data.MySqlClient;
 
 namespace AirlinePlanner.Models
 {
-  public class Item
+  public class City
   {
     private int _city_id;
     private string _city_name;
 
-    public Item (string city_name, int id=0)
+    public City (string city_name, int id=0)
     {
       _city_name = city_name;
       _city_id = id;
@@ -49,9 +49,9 @@ namespace AirlinePlanner.Models
 
     }
 
-    public static List<Item> GetAll()
+    public static List<City> GetAll()
     {
-      List<Item> allItems = new List<Item> {};
+      List<City> allCitys = new List<City> {};
       MySqlConnection conn = DB.Connection();
 
       conn.Open();
@@ -68,9 +68,9 @@ namespace AirlinePlanner.Models
         int cityId = rdr.GetInt32(0);
         string cityName = rdr.GetString(1);
 
-        Item newItem = new Item(cityName, cityId);
+        City newCity = new City(cityName, cityId);
 
-        allItems.Add(newItem);
+        allCitys.Add(newCity);
 
       }
 
@@ -79,18 +79,18 @@ namespace AirlinePlanner.Models
       {
         conn.Dispose();
       }
-      return allItems;
+      return allCitys;
     }
 
     public override bool Equals(System.Object otherCity)
       {
-        if (!(otherCity is Item))
+        if (!(otherCity is City))
         {
           return false;
         }
         else
         {
-          Item newCity = (Item) otherCity;
+          City newCity = (City) otherCity;
           bool idEquality = (this.GetCityId() == newCity.GetCityId());
           //when we change an object from one type to another, its called "TYPE CASTING"
           bool nameEquality = (this.GetCityName() == newCity.GetCityName());
@@ -98,14 +98,14 @@ namespace AirlinePlanner.Models
         }
       }
 
-      public static Item Find(int id)
+      public static City Find(int id)
       {
         MySqlConnection conn = DB.Connection();
         conn.Open();
 
         var cmd = conn.CreateCommand() as MySqlCommand;
         cmd.CommandText = @"SELECT * FROM 'cities' WHERE city_id = @thisId;";
-        //@thisId is the placeholder for the ID property of the Item we're seeking in the database
+        //@thisId is the placeholder for the ID property of the City we're seeking in the database
 
         MySqlParameter thisId = new MySqlParameter();
         //Create a MySqlParamter called thisId
@@ -131,7 +131,7 @@ namespace AirlinePlanner.Models
 
         }
 
-        Item foundCity = new Item(cityName, cityId);
+        City foundCity = new City(cityName, cityId);
 
           conn.Close();
           if (conn != null)

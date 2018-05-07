@@ -7,12 +7,12 @@ namespace AirlinePlanner.Tests
 {
 
     [TestClass]
-    public class ItemTests : IDisposable
+    public class CityTests : IDisposable
     {
 
       public void Dispose()
       {
-        Item.DeleteAll();
+        City.DeleteAll();
       }
 
       [TestMethod]
@@ -21,7 +21,7 @@ namespace AirlinePlanner.Tests
         //Arrange
         //Act
 
-        int result = Item.GetAll().Count;
+        int result = City.GetAll().Count;
 
         //Assert
         Assert.AreEqual(0, result);
@@ -30,21 +30,21 @@ namespace AirlinePlanner.Tests
       [TestMethod]
       public void Equals_ReturnsTrueIfNamesAreTheSame_City()
       {
-        Item firstCity = new Item("Chicago");
-        Item secondCity = new Item("Chicago");
+        City firstCity = new City("Chicago");
+        City secondCity = new City("Chicago");
 
 
         Assert.AreEqual(firstCity, secondCity);
       }
 
       [TestMethod]
-      public void Save_SavesToDatabase_ItemList()
+      public void Save_SavesToDatabase_CityList()
       {
-        Item testCity = new Item("Seattle");
+        City testCity = new City("Seattle");
 
         testCity.Save();
-        List<Item> result = Item.GetAll();
-        List<Item> testList = new List<Item>{testCity};
+        List<City> result = City.GetAll();
+        List<City> testList = new List<City>{testCity};
         Console.WriteLine("result " + result.Count);
         Console.WriteLine("testList " + testList.Count);
 
@@ -56,13 +56,13 @@ namespace AirlinePlanner.Tests
       public void Save_AssignsIdToObject_Id()
       {
         //Arrange
-        Item testCity = new Item("This a test");
-        Item testCity2 = new Item("hi");
+        City testCity = new City("This a test");
+        City testCity2 = new City("hi");
 
         //Act
         testCity.Save();
         testCity2.Save();
-        Item savedCity = Item.GetAll()[1];
+        City savedCity = City.GetAll()[1];
 
         int result = savedCity.GetCityId();
         int testId = testCity2.GetCityId();
