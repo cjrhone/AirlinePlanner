@@ -7,12 +7,12 @@ namespace AirlinePlanner.Tests
 {
 
     [TestClass]
-    public class CategoriesTests : IDisposable
+    public class FlightTests : IDisposable
     {
 
       public void Dispose()
       {
-        Categories.DeleteAll();
+        Flight.DeleteAll();
       }
 
       [TestMethod]
@@ -21,30 +21,30 @@ namespace AirlinePlanner.Tests
         //Arrange
         //Act
 
-        int result = Categories.GetAll().Count;
+        int result = Flight.GetAll().Count;
 
         //Assert
         Assert.AreEqual(0, result);
       }
 
-      // [TestMethod]
-      // public void Equals_ReturnsTrueIfNamesAreTheSame_City()
-      // {
-      //   Item firstCity = new Item("Chicago");
-      //   Item secondCity = new Item("Chicago");
-      //
-      //
-      //   Assert.AreEqual(firstCity, secondCity);
-      // }
-      //
+      [TestMethod]
+      public void Equals_ReturnsTrueIfNamesAreTheSame_Flight()
+      {
+        Flight firstFlight = new Flight("Delta", "11AM", "Seattle", "4PM", "Detroit", "Delayed");
+        Flight secondFlight = new Flight("Delta", "11AM", "Seattle", "4PM", "Detroit", "Delayed");
+
+
+        Assert.AreEqual(firstFlight, secondFlight);
+      }
+
       // [TestMethod]
       // public void Save_SavesToDatabase_ItemList()
       // {
-      //   Item testCity = new Item("Seattle");
+      //   Flight testCity = new Flight("Seattle");
       //
       //   testCity.Save();
-      //   List<Item> result = Item.GetAll();
-      //   List<Item> testList = new List<Item>{testCity};
+      //   List<Flight> result = Flight.GetAll();
+      //   List<Flight> testList = new List<Flight>{testCity};
       //   Console.WriteLine("result " + result.Count);
       //   Console.WriteLine("testList " + testList.Count);
       //
@@ -56,13 +56,13 @@ namespace AirlinePlanner.Tests
       // public void Save_AssignsIdToObject_Id()
       // {
       //   //Arrange
-      //   Item testCity = new Item("This a test");
-      //   Item testCity2 = new Item("hi");
+      //   Flight testCity = new Flight("This a test");
+      //   Flight testCity2 = new Flight("hi");
       //
       //   //Act
       //   testCity.Save();
       //   testCity2.Save();
-      //   Item savedCity = Item.GetAll()[1];
+      //   Flight savedCity = Flight.GetAll()[1];
       //
       //   int result = savedCity.GetCityId();
       //   int testId = testCity2.GetCityId();
