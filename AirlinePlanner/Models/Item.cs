@@ -98,8 +98,70 @@ namespace AirlinePlanner.Models
         }
       }
 
+      public static Item Find(int id)
+      {
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
 
+        var cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"SELECT * FROM 'cities' WHERE city_id = @thisId;";
+        //@thisId is the placeholder for the ID property of the Item we're seeking in the database
 
+        MySqlParameter thisId = new MySqlParameter();
+        //Create a MySqlParamter called thisId
+        thisId.ParameterName = "@thisId";
+        //Define ParameterName property as @thisId to match the SQL command
+        thisId.Value = id;
+        //Define Value property of thisId as id
+        cmd.Parameters.Add(thisId);
+        //Adds thisId to Parameters property of cmd
 
+        var rdr = cmd.ExecuteReader() as MySqlDataReader;
+
+        int cityId = 0;
+        string cityName = "";
+        //defined outside of while loop to ensure we don't hit unanticipated errors ( like not being able to define values)
+
+        while (rdr.Read())
+        //To initiate reading the database, we run a while loop
+        {
+          cityId = rdr.GetInt32(0);
+          //corresponds to the index positions
+          cityName = rdr.GetString(1);
+
+        }
+
+        Item foundCity = new Item(cityName, cityId);
+
+          conn.Close();
+          if (conn != null)
+          {
+            conn.Dispose();
+          }
+
+          return foundCity;
+      }
+
+      public static void DeleteAll()
+      {
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+        //Creates conn object representing our connection to the database
+
+        //manually opens the connection ( conn ) with conn.Open()
+        var cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"DELETE FROM cities;";
+        //Define cmd as --> creating command --> MySqlCommand... then...
+        cmd.ExecuteNonQuery();
+        //...Define CommandText property using SQL statement, which will clear the items table in our database
+
+        //Executes SQL statements that modify data (like deletion)
+        conn.Close();
+        if (conn != null)
+        //Finally, we make sure to close our connection with Close()...
+        {
+          conn.Dispose();
+        }
+      }
   }
 }
