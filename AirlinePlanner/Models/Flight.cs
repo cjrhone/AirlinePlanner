@@ -90,15 +90,19 @@ namespace AirlinePlanner.Models
             conn.Open();
 
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"INSERT INTO flights (flightName) VALUES (@flightName);";
+            cmd.CommandText = @"INSERT INTO flights (flight_name, departure_time, departure_city, arrival_time, arrival_city, status) VALUES (@flightName, @departureTime, @departureCity, @arrivalTime, @arrivalCity, @status);";
 
-            MySqlParameter flightName = new MySqlParameter();
-            flightName.ParameterName = "@flightName";
-            flightName.Value = this._flight_name;
-            cmd.Parameters.Add(flightName);
+            cmd.Parameters.Add(new MySqlParameter("@flightName", _flight_name));
+            cmd.Parameters.Add(new MySqlParameter("@departureTime", _departure_time));
+            cmd.Parameters.Add(new MySqlParameter("@departureCity", _departure_city));
+            cmd.Parameters.Add(new MySqlParameter("@arrivalTime", _arrival_time));
+            cmd.Parameters.Add(new MySqlParameter("@arrivalCity", _arrival_city));
+            cmd.Parameters.Add(new MySqlParameter("@status", _status));
+
 
             cmd.ExecuteNonQuery();
             _id = (int) cmd.LastInsertedId;
+
             conn.Close();
             if (conn != null)
             {

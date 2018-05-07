@@ -37,30 +37,31 @@ namespace AirlinePlanner.Tests
         Assert.AreEqual(firstFlight, secondFlight);
       }
 
-      // [TestMethod]
-      // public void Save_SavesToDatabase_ItemList()
-      // {
-      //   Flight testCity = new Flight("Seattle");
-      //
-      //   testCity.Save();
-      //   List<Flight> result = Flight.GetAll();
-      //   List<Flight> testList = new List<Flight>{testCity};
-      //   Console.WriteLine("result " + result.Count);
-      //   Console.WriteLine("testList " + testList.Count);
-      //
-      //
-      //   CollectionAssert.AreEqual(testList, result);
-      // }
-      //
+      [TestMethod]
+      public void Save_SavesToDatabase_FlightList()
+      {
+        Flight testFlight = new Flight("Delta", "11AM", "Seattle", "4PM", "Detroit", "Delayed");
+
+        testFlight.Save();
+
+        List<Flight> result = Flight.GetAll();
+        List<Flight> testList = new List<Flight>{testFlight};
+        //Console.WriteLine("result " + result.GetFlightName());
+        Console.WriteLine("testList " + testList.Count);
+
+
+        CollectionAssert.AreEqual(testList, result);
+      }
+
       // [TestMethod]
       // public void Save_AssignsIdToObject_Id()
       // {
       //   //Arrange
-      //   Flight testCity = new Flight("This a test");
+      //   Flight testFlight = new Flight("This a test");
       //   Flight testCity2 = new Flight("hi");
       //
       //   //Act
-      //   testCity.Save();
+      //   testFlight.Save();
       //   testCity2.Save();
       //   Flight savedCity = Flight.GetAll()[1];
       //
