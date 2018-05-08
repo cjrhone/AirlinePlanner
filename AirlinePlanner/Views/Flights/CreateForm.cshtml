@@ -8,7 +8,7 @@
 
   <label for="departure-time">Departure time:</label>
   <input id="departure-time" name="departure-time" type="text">
-
+  <label for="departure-city">Departure city:</label>
   <select id="departure-city-id" name="departure-city-id">
       @foreach(var thisDepartureCity in Model)
       {
@@ -16,22 +16,17 @@
       }
   </select>
 
-  <label for="departure-city">Departure city:</label>
-  <input id="departure-city" name="departure-city" type="text">
 
 
   <label for="arrival-time">Arrival time:</label>
   <input id="arrival-time" name="arrival-time" type="text">
-
+  <label for="arrival-city">Departure city:</label>
   <select id="arrival-city-id" name="arrival-city-id">
       @foreach(var thisArrivalCity in Model)
       {
         <option value="@thisArrivalCity.GetCityId()">@thisArrivalCity.GetCityName()</option>
       }
   </select>
-
-  <label for="arrival-city">Destination:</label>
-  <input id="arrival-city" name="arrival-city" type="text">
 
   <label for="status">Status:</label>
   <input id="status" name="status" type="text">

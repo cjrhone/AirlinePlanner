@@ -187,13 +187,13 @@ namespace AirlinePlanner.Models
           string flight_name = rdr.GetString(1);
           string departure_time = rdr.GetString(2);
           int departure_city_id = rdr.GetInt32(3);
-          string departure_city = rdr.GetString(4);
-          string arrival_time = rdr.GetString(5);
-          int arrival_city_id = rdr.GetInt32(6);
-          string arrival_city = rdr.GetString(7);
-          string status = rdr.GetString(8);
+
+          string arrival_time = rdr.GetString(4);
+          int arrival_city_id = rdr.GetInt32(5);
+
+          string status = rdr.GetString(6);
           int id = rdr.GetInt32(0);
-          Flight newFlight = new Flight(flight_name, departure_time, departure_city_id, departure_city, arrival_time, arrival_city_id, arrival_city, status, id);
+          Flight newFlight = new Flight(flight_name, departure_time, departure_city_id, arrival_time, arrival_city_id, status, id);
           flights.Add(newFlight);
         }
         conn.Close();

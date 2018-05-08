@@ -1,27 +1,36 @@
 @using AirlinePlanner.Models;
 
 <h1>Airline Planner Flights</h1>
-<h2>Flight: @Model["selectedFlight"].GetName()</h2>
+<h2>Flight: @Model["selectedFlight"].GetFlightName()</h2>
+<h2>Departing From: @Model["selectedFlight"].GetFlightName()</h2>
+<h2>Departure Time: @Model["selectedFlight"].GetDepartureTime()</h2>
+<h2>Arriving at: @Model["selectedFlight"].GetFlightName()</h2>
+<h2>Arrival Time: @Model["selectedFlight"].GetArrivalTime()</h2>
+<h2>Status: @Model["selectedFlight"].GetStatus()</h2>
+
 <hr/>
-@if (@Model["flightCities"].Count != 0)
-{
+@* @if (@Model["flightCities"].Count != 0)
+{ *@
   <h4>Here are all the cities in this flight:</h4>
   <ul>
     @foreach (var city in @Model["flightCities"])
     {
-      <li>@city.GetName()</li>
+      <li>@city.GetCityName()</li>
     }
   </ul>
-}
-<h4>Add a city to this flight:</h4>
+@* } *@
+
+<p><a href="/">Return to Main Page</a></p>
+
+@* <h4>Add a city to this flight:</h4>
+
 <form action='/flights/@Model["selectedFlight"].GetId()/cities/new’ method='post'>
   <label for='city-id'>Select a city</label>
   <select id='city-id' name='city-id' type='text'>
     @foreach (var city in @Model["allCities"])
     {
-      <option value='@city.GetId()'>@city.GetName()</option>
+      <option value='@city.GetCityId()'>@city.GetCityName()</option>
     }
   </select>
   <button type='submit'>Add</button>
-</form>
-<p><a href="/">Return to Main Page</a></p>
+</form> *@
