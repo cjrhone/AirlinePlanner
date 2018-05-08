@@ -51,7 +51,7 @@ namespace AirlinePlanner.Models
 
     public static List<City> GetAll()
     {
-      List<City> allCitys = new List<City> {};
+      List<City> allCities = new List<City> {};
       MySqlConnection conn = DB.Connection();
 
       conn.Open();
@@ -70,7 +70,7 @@ namespace AirlinePlanner.Models
 
         City newCity = new City(cityName, cityId);
 
-        allCitys.Add(newCity);
+        allCities.Add(newCity);
 
       }
 
@@ -79,7 +79,7 @@ namespace AirlinePlanner.Models
       {
         conn.Dispose();
       }
-      return allCitys;
+      return allCities;
     }
 
     public override bool Equals(System.Object otherCity)

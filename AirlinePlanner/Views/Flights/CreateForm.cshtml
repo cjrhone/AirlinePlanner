@@ -10,7 +10,7 @@
   <input id="departure-time" name="departure-time" type="text">
 
   <select id="departure-city-id" name="departure-city-id">
-      @foreach(var thisDepartureCity in Model[0])
+      @foreach(var thisDepartureCity in Model)
       {
         <option value="@thisDepartureCity.GetCityId()">@thisDepartureCity.GetCityName()</option>
       }
@@ -24,7 +24,7 @@
   <input id="arrival-time" name="arrival-time" type="text">
 
   <select id="arrival-city-id" name="arrival-city-id">
-      @foreach(var thisArrivalCity in Model[0])
+      @foreach(var thisArrivalCity in Model)
       {
         <option value="@thisArrivalCity.GetCityId()">@thisArrivalCity.GetCityName()</option>
       }

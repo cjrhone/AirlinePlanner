@@ -17,7 +17,8 @@ namespace AirlinePlanner.Controllers
     [HttpGet("/flights/new")]
     public ActionResult CreateForm()
     {
-        return View();
+      List<City> allCities = City.GetAll();
+      return View(allCities);
     }
     [HttpPost("/flights")]
     public ActionResult Create()
@@ -25,7 +26,7 @@ namespace AirlinePlanner.Controllers
         Flight newFlight = new Flight(Request.Form["flight-name"], Request.Form["departure-time"], 0, Request.Form["departure-city"], Request.Form["arrival-time"],
         0, Request.Form["arrival-city"], Request.Form["status"]);
         newFlight.Save();
-        return RedirectToAction("Success", "Home");
+        return RedirectToAction("Index");
     }
 
     // [HttpGet("/flights/{id}")]
