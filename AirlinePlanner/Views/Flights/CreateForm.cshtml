@@ -1,0 +1,42 @@
+<h1>Airline Planner</h1>
+<h2>Add new flight</h2>
+<hr/>
+<form action="/flights" method="post">
+
+  <label for="flight-name">Flight name:</label>
+  <input id="flight-name" name="flight-name" type="text">
+
+  <label for="departure-time">Departure time:</label>
+  <input id="departure-time" name="departure-time" type="text">
+
+  <select id="departure-city-id" name="departure-city-id">
+      @foreach(var thisDepartureCity in Model[0])
+      {
+        <option value="@thisDepartureCity.GetCityId()">@thisDepartureCity.GetCityName()</option>
+      }
+  </select>
+
+  <label for="departure-city">Departure city:</label>
+  <input id="departure-city" name="departure-city" type="text">
+
+
+  <label for="arrival-time">Arrival time:</label>
+  <input id="arrival-time" name="arrival-time" type="text">
+
+  <select id="arrival-city-id" name="arrival-city-id">
+      @foreach(var thisArrivalCity in Model[0])
+      {
+        <option value="@thisArrivalCity.GetCityId()">@thisArrivalCity.GetCityName()</option>
+      }
+  </select>
+
+  <label for="arrival-city">Destination:</label>
+  <input id="arrival-city" name="arrival-city" type="text">
+
+  <label for="status">Status:</label>
+  <input id="status" name="status" type="text">
+
+
+  <button type="submit">Add</button>
+</form>
+<h4><a href="/">Return home</a></h4>

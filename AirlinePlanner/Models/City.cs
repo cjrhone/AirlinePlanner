@@ -104,7 +104,7 @@ namespace AirlinePlanner.Models
         conn.Open();
 
         var cmd = conn.CreateCommand() as MySqlCommand;
-        cmd.CommandText = @"SELECT * FROM 'cities' WHERE city_id = @thisId;";
+        cmd.CommandText = @"SELECT * FROM cities WHERE city_id = @thisId;";
         //@thisId is the placeholder for the ID property of the City we're seeking in the database
 
         MySqlParameter thisId = new MySqlParameter();
@@ -162,6 +162,46 @@ namespace AirlinePlanner.Models
         {
           conn.Dispose();
         }
+      }
+
+      public List<Flight> GetFlights()
+      {
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+        MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"SELECT flights.* FROM cities
+            JOIN cities_flights ON (cities.city_id = cities_flights.city_id)
+            JOIN flights ON (cities_flights.flight_id = flights.flight_id)
+            WHERE cities.city_id = @CityId;";
+
+        MySqlParameter cityIdParameter = new MySqlParameter();
+        cityIdParameter.ParameterName = "@CityId";
+        cityIdParameter.Value = _city_id;
+        cmd.Parameters.Add(cityIdParameter);
+
+        MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+        List<Flight> flights = new List<Flight>{};
+
+        while(rdr.Read())
+        {
+          string flight_name = rdr.GetString(1);
+          string departure_time = rdr.GetString(2);
+          int departure_city_id = rdr.GetInt32(3);
+          string departure_city = rdr.GetString(4);
+          string arrival_time = rdr.GetString(5);
+          int arrival_city_id = rdr.GetInt32(6);
+          string arrival_city = rdr.GetString(7);
+          string status = rdr.GetString(8);
+          int id = rdr.GetInt32(0);
+          Flight newFlight = new Flight(flight_name, departure_time, departure_city_id, departure_city, arrival_time, arrival_city_id, arrival_city, status, id);
+          flights.Add(newFlight);
+        }
+        conn.Close();
+        if (conn != null)
+        {
+          conn.Dispose();
+        }
+        return flights;
       }
   }
 }

@@ -30,8 +30,8 @@ namespace AirlinePlanner.Tests
       [TestMethod]
       public void Equals_ReturnsTrueIfNamesAreTheSame_Flight()
       {
-        Flight firstFlight = new Flight("Delta", "11AM", "Seattle", "4PM", "Detroit", "Delayed");
-        Flight secondFlight = new Flight("Delta", "11AM", "Seattle", "4PM", "Detroit", "Delayed");
+        Flight firstFlight = new Flight("Delta", "11AM",0, "Seattle", "4PM", 0, "Detroit", "Delayed");
+        Flight secondFlight = new Flight("Delta", "11AM",0, "Seattle", "4PM", 0, "Detroit", "Delayed");
 
 
         Assert.AreEqual(firstFlight, secondFlight);
@@ -40,7 +40,7 @@ namespace AirlinePlanner.Tests
       [TestMethod]
       public void Save_SavesToDatabase_FlightList()
       {
-        Flight testFlight = new Flight("Delta", "11AM", "Seattle", "4PM", "Detroit", "Delayed");
+        Flight testFlight = new Flight("Delta", "11AM", 0, "Seattle", "4PM", 0,"Detroit", "Delayed");
 
         testFlight.Save();
 
