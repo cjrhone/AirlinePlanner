@@ -19,7 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `airline_planner`
 --
-
+CREATE DATABASE IF NOT EXISTS `airline_planner` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `airline_planner`;
 -- --------------------------------------------------------
 
 --

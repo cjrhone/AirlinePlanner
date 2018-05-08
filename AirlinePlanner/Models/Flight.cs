@@ -48,41 +48,38 @@ namespace AirlinePlanner.Models
         {
             return _id;
         }
-        // public List<City> GetCities()
-        // {
-        //   List<City> allFlightCities = new List<City> {};
-        //   MySqlConnection conn = DB.Connection();
-        //   conn.Open();
-        //   var cmd = conn.CreateCommand() as MySqlCommand;
-        //   cmd.CommandText = @"SELECT * FROM cities WHERE flight_id = @flight_id;";
-        //
-        //   MySqlParameter FlightId = new MySqlParameter();
-        //   FlightId.ParameterName = "@flight_id";
-        //   FlightId.Value = this._id;
-        //   cmd.Parameters.Add(FlightId);
-        //
-        //
-        //   var rdr = cmd.ExecuteReader() as MySqlDataReader;
-        //   while(rdr.Read())
-        //   {
-        //     int cityId = rdr.GetInt32(0);
-        //     string clientName = rdr.GetString(1);
-        //     int clientFlightId = rdr.GetInt32(2);
-        //     Client newClient = new Client(clientName, clientId);
-        //     allFlightClients.Add(newClient);
-        //   }
-        //   conn.Close();
-        //   if (conn != null)
-        //   {
-        //       conn.Dispose();
-        //   }
-        //   return allFlightClients;
-        // }
+        public List<City> GetCities()
+        {
+          MySqlConnection conn = DB.Connection();
+          conn.Open();
+          MySqlConnection cmd = conn.CreateCommand() as MySqlCommand;
+          cmd.CommandText = @"SELECT cities.* FROM flights
+              JOIN flights_cities ON (flights.id = flights_cities_flights_id)
+              JOIN cities ON (flights_cities.cities_id = cities.id)
+              WHERE flights.id = @FlightId;";
 
-        // public void AddClient(Client client)
-        // {
-        //   _clients.Add(client);
-        // }
+          MySqlParameter flightIdParameter = new MySqlCommand();
+          flightIdParameter.ParameterName = "@FlightId";
+          flightIdParameter.Value = _id;
+          cmd.Parameters.Add(flightIdParameter);
+
+          MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+          List<City> cities = new List<City>{};
+
+          while(rdr.Read())
+          {
+            int cityId = rdr.GetInt32(0);
+            string cityName = rdr.GetString(1);
+            City newCity = new City(cityName, cityId);
+            cities.Add(newCity);
+          }
+          conn.Close()
+          if (conn != null)
+          {
+            conn.Dispose();
+          }
+          return cities;
+        }
 
         public void Save()
         {
