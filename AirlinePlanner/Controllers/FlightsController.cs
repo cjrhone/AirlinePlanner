@@ -9,7 +9,9 @@ namespace AirlinePlanner.Controllers
     [HttpGet("/flights")]
     public ActionResult Index()
     {
-        return View();
+        List<Flight> allFlights = Flight.GetAll();
+        return View(allFlights);
+
     }
 
     [HttpGet("/flights/new")]

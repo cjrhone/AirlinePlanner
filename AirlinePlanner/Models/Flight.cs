@@ -58,9 +58,9 @@ namespace AirlinePlanner.Models
           conn.Open();
           MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
           cmd.CommandText = @"SELECT cities.* FROM flights
-              JOIN flights_cities ON (flights.id = flights_cities_flights_id)
-              JOIN cities ON (flights_cities.cities_id = cities.id)
-              WHERE flights.id = @FlightId;";
+              JOIN flights_cities ON (flights.flight_id = flights_cities.flight_id)
+              JOIN cities ON (flights_cities.city_id = cities.city_id)
+              WHERE flights.flight_id = @FlightId;";
 
           MySqlParameter flightIdParameter = new MySqlParameter();
           flightIdParameter.ParameterName = "@FlightId";
@@ -72,10 +72,9 @@ namespace AirlinePlanner.Models
 
           while(rdr.Read())
           {
-            int cityId = rdr.GetInt32(0);
-            string cityName = rdr.GetString(1);
-            City newCity = new City(cityName, cityId);
-            cities.Add(newCity);
+            string flight_name = rdr.GetString(1);
+            int id = rdr.GetInt32(0);
+            City newCity = new City(flight_name, id);
           }
           conn.Close();
           if (conn != null)
