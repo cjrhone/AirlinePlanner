@@ -25,9 +25,9 @@ namespace AirlinePlanner.Controllers
     {
         Flight newFlight = new Flight(Request.Form["flight-name"],
         Request.Form["departure-time"],
-        0,
+        int.Parse(Request.Form["departure-city-id"]),
         Request.Form["arrival-time"],
-        0,
+        int.Parse(Request.Form["arrival-city-id"]),
         Request.Form["status"]);
 
         newFlight.Save();

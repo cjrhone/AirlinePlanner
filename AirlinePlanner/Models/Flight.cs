@@ -63,6 +63,16 @@ namespace AirlinePlanner.Models
         {
             return _id;
         }
+
+        public int GetDepartureCityId()
+        {
+            return _departure_city_id;
+        }
+
+        public int GetArrivalCityId()
+        {
+            return _arrival_city_id;
+        }
         public List<City> GetCities()
         {
           MySqlConnection conn = DB.Connection();

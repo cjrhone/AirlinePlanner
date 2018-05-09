@@ -2,9 +2,9 @@
 
 <h1>Airline Planner Flights</h1>
 <h2>Flight: @Model["selectedFlight"].GetFlightName()</h2>
-<h2>Departing From: @Model["selectedFlight"].GetFlightName()</h2>
+<h2>Departing From: @City.Find(Model["selectedFlight"].GetDepartureCityId()).GetCityName()</h2>
 <h2>Departure Time: @Model["selectedFlight"].GetDepartureTime()</h2>
-<h2>Arriving at: @Model["selectedFlight"].GetFlightName()</h2>
+<h2>Arriving at: @City.Find(Model["selectedFlight"].GetArrivalCityId()).GetCityName()</h2>
 <h2>Arrival Time: @Model["selectedFlight"].GetArrivalTime()</h2>
 <h2>Status: @Model["selectedFlight"].GetStatus()</h2>
 
